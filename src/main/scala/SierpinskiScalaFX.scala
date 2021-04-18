@@ -12,7 +12,7 @@ import scalafx.scene.text.Text
 
 import scala.language.implicitConversions
 
-object ScalaFXHelloWorld2 extends JFXApp3 {
+object SierpinskiScalaFX extends JFXApp3 {
 
   override def start(): Unit = {
 
