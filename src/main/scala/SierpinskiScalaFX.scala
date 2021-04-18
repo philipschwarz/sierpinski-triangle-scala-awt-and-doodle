@@ -19,16 +19,15 @@ object SierpinskiScalaFX extends JFXApp3 {
     stage = new PrimaryStage {
       title = "Sierpinski's Carpet"
 
-      val adjustForLineThickness = 4
-      val triangleSide = 400.0
+      val triangleSide = 256.0
       val triangleHeight = Math.sqrt(triangleSide*triangleSide - (triangleSide/2.0 * triangleSide/2.0))
 
       val xShift = 0.0
       val yShift = 0.0
 
-      val triangle1 = Triangle(xShift + 0, yShift + triangleHeight + adjustForLineThickness/2, triangleSide, Red)
-      val triangle2 = Triangle(xShift + 0, yShift + triangleHeight + adjustForLineThickness/2, triangleSide, Red)
-      val triangle3 = Triangle(xShift - triangleSide * 1.5 - adjustForLineThickness, yShift + 0, triangleSide, Red)
+      val triangle1 = Triangle(xShift + 0, yShift + triangleHeight, triangleSide, Red)
+      val triangle2 = Triangle(xShift + 0, yShift + triangleHeight, triangleSide, Red)
+      val triangle3 = Triangle(xShift - triangleSide * 1.5, yShift + 0, triangleSide, Red)
 
       val triangles = Seq(triangle1, triangle2, triangle3)
 
