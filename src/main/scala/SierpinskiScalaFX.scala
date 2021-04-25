@@ -45,9 +45,10 @@ object SierpinskiScalaFX extends JFXApp3 {
 
 object Triangle:
   def apply(x: Double, y: Double, side: Double, colour: Color): Polygon =
+    val halfSide = side / 2.0
     val polygon = Polygon(
       0,        0,
-      side/2.0, -Math.sqrt((side*side-((side/2.0)*(side/2.0)))),
+      halfSide, -Math.sqrt((side*side-((halfSide)*(halfSide)))),
       side,     0)
     polygon.fill = White
     polygon.stroke = colour
