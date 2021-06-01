@@ -5,34 +5,39 @@
   import doodle.image.syntax.core._
   import doodle.java2d._
   import doodle.java2d.effect.Frame
+  import EquilateralTriangle._
 
-  def fillTri(size: Int): Image = {
-  //  val width = Math.sqrt(size * size + size * size)
-  //  val height = Math.sqrt(size * size - ((width / 2) * (width / 2)))
-  //  Image.triangle(width, height).strokeColor(Color.blue)
-      Image.triangle(size,size).strokeColor(triangleColour)//.fillColor(Color.red)
-      //Image.triangle(size, size / 2.0 * Math.sqrt(3)).strokeColor(triangleColour)
-      //Image.triangle(size, size * 0.866025403784439).strokeColor(triangleColour)
-  }
+  object EquilateralTriangle:
+    // From https://en.wikipedia.org/wiki/Square_root_of_3:
+    // The square root of 3 ...is also known as Theodorus' constant,
+    // after Theodorus of Cyrene, who proved its irrationality.
+    private val constantOfTheodorus: Double = Math.sqrt(3)
+    // From https://en.wikipedia.org/wiki/Equilateral_triangle:
+    // The altitude (height) h from any side a is √3÷2×a
+    private val widthToHeightMultiplier = constantOfTheodorus / 2
+    def heightFromWidth(width: Double): Double =
+      widthToHeightMultiplier * width
 
-  def sierpinskiTri(size: Int): Image =
+  def fillTriangle(size: Int): Image =
+    Image.triangle(width = size, height = EquilateralTriangle.heightFromWidth(size))
+         .strokeColor(triangleColour)
+         .fillColor(Color.red)
+
+  def sierpinskiTriangle(size: Int): Image =
     if size <= minSize
-    then fillTri(size)
+    then fillTriangle(size)
     else
-      val image = sierpinskiTri(size / 2)
-      image above (image beside image)
+      val triangle = sierpinskiTriangle(size / 2)
+      triangle above (triangle beside triangle)
 
-  val minSize = 128
-  val title = "Sierpinsky's carpet"
-  val width = 660
-  val height = 660
-  val backgroundColour = Color.white
-  val frame = Frame.size(width,height).title(title).background(backgroundColour)
-  val carpetSize = 512
+  val minSize = 8
+  val frameTitle = "Sierpinski's Triangle"
+  val frameWidth = 660
+  val frameHeight = 660
+  val frameBackgroundColour = Color.white
+  val frame = Frame.size(frameWidth,frameHeight).title(frameTitle).background(frameBackgroundColour)
+  val triangleSize = 512
   val triangleColour = Color.red
 
-  @main def sierpinski: Unit =
-    sierpinskiTri(carpetSize).draw(frame)
-
-
-
+  @main def sierpinskiWithDoodle: Unit =
+    sierpinskiTriangle(triangleSize).draw(frame)
